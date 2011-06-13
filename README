@@ -1,0 +1,24 @@
+Get instant suggestions from 19 sources to find what you're looking for fast.
+
+Those sources are: Google, Amazon, Netflix, Wikipedia, YouTube, Chrome Bookmarks, Chrome History, Gmail, Facebook, Google Docs, Dropbox, Apple, Quora, Evernote, Baidu, Fanvibe, Twitter, LinkedIn, and Delicious.
+
+How does it work? Ozone runs completely in your browser, communicating with services just like you would if you visited them directly. If you're already signed in to a service, Ozone can fetch personalized results automatically (such as autocompleting your friends' names from Facebook). This means that no additional setup is required to start using this extension. Just install and you'll be instantly searching all 19 sources at once!
+
+New in v1.1 (I've been listening to your feedback!): 
+
+* Customize your sources! Choose Options from the Ozone icon in your toolbar.
+* New sources to choose from - Google Docs and Dropbox now supported.
+* Add sources to Google search - see personalized results when searching Google.
+
+New in v1.2:
+
+* Speed improvements - loading Ozone is now even snappier.
+* New sources - Evernote and Baidu now supported.
+* New Tab page - added ability to use Ozone as your New Tab page (disabled until Chrome allows this to be a preference, grab v1.21).
+
+New in v1.3:
+
+* Omnibox keyword ("o") - type o<tab> in the Omnibox to get suggestions and search Ozone as you type.
+* Fixes for signed in sources - problems with results appearing for specific sources have been fixed.
+
+https://chrome.google.com/webstore/detail/peeefgkjcjfpjdmpklpfaompngmbknje
