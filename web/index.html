@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!-- Go ahead, send me an email! joepestro at gmail.com -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+		<title>Ozone</title>
+		
+		<link rel="shortcut icon" href="images/favicon.png" /> 
+		<link rel="stylesheet" href="css/ozone.css" type="text/css" />
+		
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/sources.js"></script>
+		<script type="text/javascript" src="js/contentscript.js"></script>
+		<script type="text/javascript" src="js/bridge.js"></script>
+		<script type="text/javascript" src="js/parse.js"></script>
+		<script type="text/javascript" src="js/callbacks.js"></script>
+		<script type="text/javascript" src="js/suggest.js"></script>
+		<script type="text/javascript" src="js/ozone.js"></script>
+	</head>
+	
+	<body>
+		<center>
+			<form action="" name="f" id="f">
+				<table cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr valign="middle">
+							<td align="right" nowrap="" colspan="2">
+								<input autocomplete="off" maxlength="2048" name="q" id="q" size="55" title="Ozone Search" value="" spellcheck="false" tabindex="1">
+							</td>
+						</tr>
+						<tr id="bottomicons">
+							<td id="sources"></td>
+							<td align="right">
+								<input type="submit" tabindex="2" value="Ozone Search">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			
+			<p id="welcome">Ozone recommends stuff from <strong id="sources_count">lots of sources</strong> as you type. <a id="unlock" href="https://chrome.google.com/extensions/detail/peeefgkjcjfpjdmpklpfaompngmbknje">Unlock <span id="locked_count"></span> more</a>.</p>
+		</center>
+		
+		<div id="prompt"><strong>Tip: </strong>Use <kbd>&uarr;&darr;</kbd> and <kbd>tab</kbd> to change sources!</div>
+		<div id="bridge"></div>
+	</body>
+</html>

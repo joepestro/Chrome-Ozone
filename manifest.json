@@ -1,0 +1,56 @@
+{
+	"name": "Ozone",
+	"version": "1.30",
+	"minimum_chrome_version": "6.0",
+	"description": "Ozone is the Omnibox on steroids. It recommends stuff from the web services you already use. Oh yea, and it's really fast.",
+	"permissions": [
+		"cookies",
+		"bookmarks",
+		"history",
+		"tabs",
+		"chrome://favicon/",
+		"http://api.twitter.com/*",		
+		"http://facebook.com/*",
+		"http://www.facebook.com/*",
+		"*://docs.google.com/*",
+		"*://www.dropbox.com/*",
+		"http://fanvibe.com/*",
+		"http://www.linkedin.com/*",
+		"http://feeds.delicious.com/*",
+		"*://mail.google.com/*",
+		"http://www.apple.com/*",
+		"http://www.quora.com/*",
+		"*://www.evernote.com/*",
+		"http://suggestion.baidu.com/*"
+	],
+	"icons": {
+		"16" : "images/ozone-16.png",
+		"48" : "images/ozone-48.png",
+		"128" : "images/ozone-128.png"
+	},
+	"background_page" : "background.html",
+	"options_page": "options.html",
+	"omnibox": { "keyword" : "o" },
+	"browser_action": {
+	  	"default_icon": "images/ozone.png", 
+		"default_title": "Ozone"
+	},
+	"content_scripts": [
+		{
+			"matches": ["http://chrome-ozone.appspot.com/*"],
+			"js" : ["js/redirect.js"]
+		},
+		{
+			"matches": ["http://www.google.com/*"],
+			"js" : ["web/js/jquery.min.js", "web/js/sources.js", "web/js/parse.js", "web/js/suggest.js", "web/js/callbacks.js", "web/js/bridge.js", "js/google.js"]
+		},
+		{
+			"matches": ["https://www.dropbox.com/home"],
+			"js" : ["web/js/jquery.min.js", "js/dropbox.js", "web/js/bridge.js"]
+		},
+		{
+			"matches": ["https://docs.google.com/"],
+			"js" : ["web/js/jquery.min.js", "js/googledocs.js", "web/js/bridge.js"]
+		}
+	]
+}

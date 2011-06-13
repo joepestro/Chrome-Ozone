@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--
+ * Copyright (c) 2010 Joe Pestro
+-->
+<html>
+<head>
+    <title>Ozone - Options</title>
+    <style>
+        body {
+            font-family: Helvetica;
+            font-size: 84%;
+            color: black;
+        }
+        #all {
+            width: 70%;
+            margin: 20px auto;
+        }
+        #o, #g {
+            width: 45%;
+            float: left;
+            margin: 0 2% 30px 2%;
+        }
+
+        .disabled {
+            color: #bbb;
+        }
+        .disabled a {
+            color: #bbb;
+        }
+        label.on {
+            color: green;
+        }
+        #save {
+            clear: left;
+            padding: 10px 20px;
+            margin: 0 2%;
+            background-color: #EBEFF9;
+            text-align: left;
+        }
+        #status {
+            float: right;
+            color: blue;
+            font-weight: bold;
+        }
+        h2 {
+            background-color: #EBEFF9;
+            border-top: 1px solid #9CC2EF;
+            font-weight: bold;
+            margin-bottom: -8px;
+            margin-top: 12px;
+            padding: 3px;
+            font-size: 13px;
+        }
+        p.d {
+            font-style: italic;
+        }
+        a.cancel {
+            margin-left: 25px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="web/js/sources.js"></script>
+<script type="text/javascript" src="web/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var allSources = {};
+	allSources = $.extend(allSources, public);
+	allSources = $.extend(allSources, locked);
+	allSources = $.extend(allSources, preload);
+    
+    for (source in allSources) {
+        var sourceWithIcon = '<img src="' + getIcon(allSources[source].root) + '" width="12px" height="12px" /> ' + source;
+        var checked = "";
+        
+        if (allSources[source].enabled)
+		    checked = ' checked="checked"';
+		
+		if (allSources[source].google)
+		    $("#g .sources").append('<div><input name="' + source + '" id="' + source + '2" type="checkbox"' + checked + '></input> <label for="' + source + '2">' + sourceWithIcon + '</label></div>');
+		
+		$("#o .sources").append('<div><input name="' + source + '" id="' + source + '" type="checkbox"' + checked + '></input> <label for="' + source + '">' + sourceWithIcon + '</label></div>');
+	}
+	
+	$("input[name='google_enabled']").change(check_form);
+    
+    // limit to 15 sources
+    $("#o .sources input").click(function() {
+        if ($("#o .sources input:checked").length > 15)
+            $("#o .sources input:checked:first").attr("checked", false);
+    });
+    
+    $("input, select").change(function() {
+        $("#save button").attr("disabled", false);
+    })
+});
+
+function check_form() {
+    if ($("input[name='google_enabled']:checked").val() == 'true') {
+        $("#g").removeClass("disabled");
+        $("#g input[type='checkbox'], #g select").attr("disabled", false)
+    } else if ($("input[name='google_enabled']:checked").val() == 'false') {
+        $("#g").addClass("disabled");
+        $("#g input[type='checkbox'], #g select").attr("disabled", "disabled")
+    }
+}
+
+function save_options() {
+    var o = [];
+    var g = [];
+    
+    $("#o .sources input:checked").each(function() {
+        o.push(this.name);
+    });
+    
+    $("#g .sources input:checked").each(function() {
+        g.push(this.name);
+    });
+    
+    localStorage["google_enabled"] = $("#google_enabled_true").attr("checked");
+    localStorage["google_number"] = $("#google_number").val();
+    localStorage["ozone_enabled_sources"] = o;
+    localStorage["google_enabled_sources"] = g;
+    
+    $("#save button").attr("disabled", true);
+    $("#status").text("Options Updated!");
+    
+    document.location = chrome.extension.getURL("web/index.html");
+}
+
+function restore_options() {        
+    var o = localStorage["ozone_enabled_sources"];
+    var g = localStorage["google_enabled_sources"];
+    
+    if (typeof(o) == "string") {        
+        $("#o .sources input").each(function() {
+            $(this).attr("checked", false);
+        });
+        
+        o = o.split(",");
+        for (var i = 0; i < o.length; i++) {
+            $("#o .sources input[name='" + o[i] + "']").attr("checked", true);
+        }
+    }
+    
+    if (typeof(g) == "string") {        
+        $("#g .sources input").each(function() {
+            $(this).attr("checked", false);
+        });
+        
+        g = g.split(",");
+        for (var i = 0; i < g.length; i++) {
+            $("#g .sources input[name='" + g[i] + "']").attr("checked", true);
+        }
+    }
+    
+    if (localStorage["google_enabled"] == "true")
+        $("#google_enabled_true").attr("checked", true);
+    else
+        $("#google_enabled_false").attr("checked", true);
+        
+    $("#google_number").val(localStorage["google_number"]);
+    
+    check_form();
+}
+
+function getIcon(url) {
+	if (url.indexOf("http://") != -1)
+		return "chrome://favicon/" + url;
+	else
+		return "web/" + url;
+}
+</script>
+
+<body onload="restore_options()">
+    <div id="all">    
+        <div id="o">
+            <h2>Ozone Results</h2>
+            <p class="d">Show results from these sources when searching <a href="web/index.html">Ozone</a></p>
+            <div class="sources"></div>
+        </div>
+
+        <div id="g" class="disabled">
+            <h2>Google Results</h2>
+
+            <p class="d">Show results from these sources when searching <a href="http://www.google.com">Google</a></p>
+            <div>
+                <p>
+                    <input type="radio" id="google_enabled_true" name="google_enabled" value="true"> <label class="on" for="google_enabled_true">Enable</label><br/>
+                    <input type="radio" id="google_enabled_false" name="google_enabled" value="false" checked="checked"> <label class="off" for="google_enabled_false">Disable</label><br/>
+                </p>
+    
+                <p>
+                    Show at most 
+                    <select id="google_number">
+                        <option>1</option>
+                        <option>2</option>
+                        <option selected="selected">3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                    </select>
+                    results from each source
+                </p>
+            </div>
+    
+            <div class="sources"></div>
+        </div>
+
+        <div id="save">
+            <button onclick="save_options()" disabled="disabled">Save changes</button> <a href="web/index.html" class="cancel">Cancel</a>
+            <div id="status"></div>
+        </div>
+    </div>
+</body>
+</html>

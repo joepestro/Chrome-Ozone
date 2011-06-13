@@ -1,0 +1,1 @@
+document.location = chrome.extension.getURL("web/index.html");
