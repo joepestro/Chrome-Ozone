@@ -1,4 +1,12 @@
+Chrome Ozone
+=======
+
 Get instant suggestions from 19 sources to find what you're looking for fast.
+
+[![](https://github.com/joepestro/Chrome-Ozone/raw/master/ozone.png)](https://github.com/joepestro/Chrome-Ozone/raw/master/ozone.png)
+
+Sources
+---
 
 Those sources are: Google, Amazon, Netflix, Wikipedia, YouTube, Chrome Bookmarks, Chrome History, Gmail, Facebook, Google Docs, Dropbox, Apple, Quora, Evernote, Baidu, Fanvibe, Twitter, LinkedIn, and Delicious.
 
@@ -22,3 +30,4 @@ New in v1.3:
 * Fixes for signed in sources - problems with results appearing for specific sources have been fixed.
 
 https://chrome.google.com/webstore/detail/peeefgkjcjfpjdmpklpfaompngmbknje
+
